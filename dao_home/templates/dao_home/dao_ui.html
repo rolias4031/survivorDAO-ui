@@ -1,0 +1,121 @@
+{% extends 'dao_home/base.html' %}
+{% block content %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'dao_home/style.css' %}">
+
+<div class="container text-center m-5">
+  <div class="row">
+    <div class="col">
+      <h1>Survivor DAO</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container mx-5">
+  <div class="row justify-content-center">
+    <div class="col-6" align="center">
+
+      <h3>Become a Citizen of Survivor DAO</h3>
+      <form class="" action="{% url 'survivor_dao' %}" method="get">
+        <div class="row">
+          <div class="col-9">
+            <input class="form-control" type="text" name="name" value="" placeholder="enter a name">
+          </div>
+          <div class="col-3">
+            <input class="btn btn-primary" type="submit" name="mint_submit" value="Mint Citizen" style="width:100%">
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3 mx-5">
+  <div class="row justify-content-center">
+
+    {% if Citizen.new_citizen %}
+    <div class="col-6 info-panel">
+      <p class="info-head" align="center">Citizenship Card</p>
+      <p class="info-text info-add">{{Data.sender_address}}</p><br>
+      <p class="info-cat">ID: </p><p class="info-text">{{Citizen.citizen_id}}</p><br>
+      <p class="info-cat">Name: </p><p class="info-text">{{Citizen.new_citizen.0}}</p><br>
+      <p class="info-cat">Rounds Survived: </p><p class="info-text">{{Citizen.new_citizen.1}}</p><br>
+      <p class="info-cat">Exiled: </p><p class="info-text">{{Citizen.new_citizen.2}}</p>
+    </div>
+    {% elif Data.error_mint %}
+    <div class="col-6" align="center">
+        {% if Data.sender_address %}
+          <p>Address: {{Data.sender_address}}</p>
+        {% endif %}
+        <p class="alert alert-danger">{{Data.error_mint}}</p>
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+<div class="container mx-5 mt-4">
+  <div class="row justify-content-center">
+    <div class="col-6" align="center">
+
+      <h3>Check Citizenship</h3>
+      <form class="" action="{% url 'survivor_dao' %}" method="get">
+        <div class="row">
+          <div class="col-9">
+            <input class="form-control input-lg" type="text" name="address" value="" placeholder="enter an address">
+          </div>
+          <div class="col-3">
+            <input class="btn btn-primary" type="submit" name="check_submit" value="Find" style="width:100%">
+          </div>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+
+<div class="container mt-3 mx-5">
+  <div class="row justify-content-center">
+    {% if Citizen.current_citizen %}
+    <div class="col-6 info-panel">
+      <p class="info-head" align="center">Citizenship Card</p>
+      <p class="info-text">{{Citizen.current_citizen.owner}}</p><br>
+      <p class="info-cat">ID: </p><p class="info-text">{{Citizen.current_citizen_id}}</p><br>
+      <p class="info-cat">Name: </p><p class="info-text">{{Citizen.current_citizen.name}}</p><br>
+      <p class="info-cat">Rounds Survived: </p><p class="info-text">{{Citizen.current_citizen.rounds}}</p><br>
+      <p class="info-cat">Exiled: </p><p class="info-text">{{Citizen.current_citizen.exiled}}</p>
+    </div>
+    {% elif Data.error_search %}
+    <div class="col-6" align="center">
+      {% if Data.sender_address %}
+        <p class="">Address: {{Data.sender_address}}</p>
+      {% endif %}
+      <p class="alert alert-danger">{{Data.error_search}}</p>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="container m-5">
+  <div class="row justify-content-center">
+    <div class="col-12">
+      <div class="row justify-content-center">
+        {% for citizen, value in Citizen.registry.items %}
+        <div class="col-2 mx-3 mt-4 gallery-panel">
+          <p class="gallery-cat">ID: </p><p class="gallery-text">{{citizen}}</p><br>
+          <p class="gallery-cat">Name: </p><p class="gallery-text">{{value.name}}</p><br>
+          <p class="gallery-cat">Rounds Survived: </p><p class="gallery-text">{{value.rounds}}</p><br>
+          <p class="gallery-cat">Exiled: </p><p class="gallery-text">{{value.exiled}}</p><br>
+          <div class="gallery-owner">{{value.owner}}<br></div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
