@@ -1,0 +1,23 @@
+{
+  "name": "survivordao-ui",
+  "version": "1.0.0",
+  "description": "UI for the infamous SurvivirDAO",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bundle": "browserify dao_home/static/dao_home/coinbasewallet.js > dao_home/static/dao_home/bundled.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rolias4031/survivorDAO-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rolias4031/survivorDAO-ui/issues"
+  },
+  "homepage": "https://github.com/rolias4031/survivorDAO-ui#readme",
+  "dependencies": {
+    "browserify": "^17.0.0"
+  }
+}
