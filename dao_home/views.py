@@ -59,10 +59,10 @@ def survivor_dao(request):
             Data.error_search = "Enter a valid address to search"
 
     elif request.GET.get("startGame") and Conn.objects["connect_bool"]:
-        startGame_func(Conn.contract)
+        startGame_func(Conn.contract, Conn)
 
     elif request.GET.get("resetGame") and Conn.objects["connect_bool"]:
-        resetGame_func(Conn.contract)
+        resetGame_func(Conn.contract, Conn)
 
     return render(request, "dao_home/dao_ui.html",
                   {'Data': Data,

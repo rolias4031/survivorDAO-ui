@@ -1,11 +1,13 @@
 import json
 import web3
 from web3 import Web3
+from web3.middleware import geth_poa_middleware
 from .creds import *
 
 def web3_connect(url):
 
     web3 = Web3(Web3.HTTPProvider(url))
+    web3.middleware_onion.inject(geth_poa_middleware, layer=0)
     connect_bool = web3.isConnected()
 
     if connect_bool:
@@ -18,7 +20,7 @@ def web3_connect(url):
 
 def _load_creds_(web3, contract_abi):
 
-    web3.eth.defaultAccount = web3.eth.accounts[0]
+    # web3.eth.defaultAccount = web3.eth.accounts[0]
     abi = json.loads(contract_abi)
 
     return abi
@@ -136,11 +138,22 @@ def img_dispenser(Data, Citizen, id):
     print(Data.images)
     return Data.images[i]
 
-def startGame_func(contract):
-    return contract.functions.startGame().transact()
+def startGame_func(contract, Conn):
+    web3 = Conn.objects["web3"]
+    transaction = contract.functions.startGame().buildTransaction()
+    transaction.update({ 'nonce' : web3.eth.get_transaction_count('0x9751436Dd7A76f7f226a6D60292b495ff8eb2d02') })
+    signed_tx = web3.eth.account.sign_transaction(transaction, '<privateKey>')
+    txn_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    txn_receipt = web3.eth.wait_for_transaction_receipt(txn_hash)
 
 def gameStatus_func(contract):
     return contract.functions.gameStarted().call()
 
-def resetGame_func(contract):
-    return contract.functions.resetGame().transact()
+def resetGame_func(contract, Conn):
+    web3 = Conn.objects["web3"]
+    transaction = contract.functions.resetGame().buildTransaction()
+    transaction.update({ 'nonce' : web3.eth.get_transaction_count('0x9751436Dd7A76f7f226a6D60292b495ff8eb2d02') })
+    signed_tx = web3.eth.account.sign_transaction(transaction, '<privateKey>')
+    txn_hash = web3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    txn_receipt = web3.eth.wait_for_transaction_receipt(txn_hash)
+    return txn_receipt
