@@ -1,6 +1,6 @@
 # survivorDAO-ui
 
-This repository holds the UI for Survivor DAO. Built using Django 4.
+This repository holds the UI for [Survivor DAO](https://github.com/rolias4031/survivorDAO-ui). Built using Django 4.
 
 #### Run Site Locally
 
