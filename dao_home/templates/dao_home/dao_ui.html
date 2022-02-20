@@ -17,16 +17,14 @@
     <div class="col-6" align="center">
 
       <h3>Become a Citizen of Survivor DAO</h3>
-      <form class="" action="{% url 'survivor_dao' %}" method="get">
-        <div class="row">
-          <div class="col-9">
-            <input class="form-control" type="text" name="name" value="" placeholder="enter a name">
-          </div>
-          <div class="col-3">
-            <input class="btn btn-primary" type="submit" name="mint_submit" value="Mint Citizen" style="width:100%">
-          </div>
+      <div class="row">
+        <div class="col-9">
+          <input class="form-control" type="text" id="newCitizenName" value="" placeholder="enter a name">
         </div>
-      </form>
+        <div class="col-3">
+          <input class="btn btn-primary" type="submit" id="mintCitizenButton" value="Mint Citizen" style="width:100%">
+        </div>
+      </div>
 
     </div>
   </div>
