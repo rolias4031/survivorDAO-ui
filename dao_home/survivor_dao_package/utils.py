@@ -64,6 +64,10 @@ def organize_citizens(request, Data, Conn, Citizen):
 
         id = all_citizens.index(citizen) + 1
         Citizen.registry[str(id)] = dict(owner = ownerOf_func(Conn.contract, id))
+        Citizen.registry[str(id)]["delegatee"] = get_delegates(Conn.contract, Citizen.registry[str(id)]["owner"])
+        Citizen.registry[str(id)]["voting_power"] = get_voting_power(Conn.contract, Citizen.registry[str(id)]["owner"])
+        Citizen.registry[str(id)]["img"] = img_dispenser(Data, Citizen, id)
+        print(Citizen.registry[str(id)]["img"])
 
         keys = ["name", "rounds", "exiled"]
         for i in range(0, len(citizen)):
@@ -116,3 +120,27 @@ def address_check(address):
         return True
     else:
         return False
+
+def get_delegates(contract, address):
+    delegatee = contract.functions.delegates(address).call()
+    if delegatee == "0x0000000000000000000000000000000000000000":
+        return "N/A"
+    else:
+        return delegatee
+
+def get_voting_power(contract, address):
+    return contract.functions.getVotes(address).call()
+
+def img_dispenser(Data, Citizen, id):
+    i = id % 5
+    print(Data.images)
+    return Data.images[i]
+
+def startGame_func(contract):
+    return contract.functions.startGame().transact()
+
+def gameStatus_func(contract):
+    return contract.functions.gameStarted().call()
+
+def resetGame_func(contract):
+    return contract.functions.resetGame().transact()

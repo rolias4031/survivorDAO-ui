@@ -7,7 +7,7 @@
 <div class="container text-center m-5">
   <div class="row">
     <div class="col">
-      <h1>Survivor DAO</h1>
+      <h1 class="title">Survivor DAO</h1>
     </div>
   </div>
 </div>
@@ -16,7 +16,7 @@
   <div class="row justify-content-center">
     <div class="col-6" align="center">
 
-      <h3>Become a Citizen of Survivor DAO</h3>
+      <h3 class="submit-heading">Become a Citizen of Survivor DAO</h3>
       <div class="row">
         <div class="col-9">
           <input class="form-control" type="text" id="newCitizenName" value="" placeholder="enter a name">
@@ -30,17 +30,21 @@
   </div>
 </div>
 
-<div class="container mt-3 mx-5">
+<div class="container mt-5 mx-5">
   <div class="row justify-content-center">
 
     {% if Citizen.new_citizen %}
-    <div class="col-6 info-panel">
+    <div class="col-auto info-panel">
       <p class="info-head" align="center">Citizenship Card</p>
-      <p class="info-text info-add">{{Data.sender_address}}</p><br>
-      <p class="info-cat">ID: </p><p class="info-text">{{Citizen.citizen_id}}</p><br>
-      <p class="info-cat">Name: </p><p class="info-text">{{Citizen.new_citizen.0}}</p><br>
-      <p class="info-cat">Rounds Survived: </p><p class="info-text">{{Citizen.new_citizen.1}}</p><br>
-      <p class="info-cat">Exiled: </p><p class="info-text">{{Citizen.new_citizen.2}}</p>
+      <p class="info-add" align="left">{{Data.sender_address}}</p>
+      <div class="row">
+        <div class="col-auto">
+          <p class="info-cat">ID: </p><p class="info-text">{{Citizen.citizen_id}}</p><br>
+          <p class="info-cat">Name: </p><p class="info-text">{{Citizen.new_citizen.0}}</p><br>
+          <p class="info-cat">Rounds Survived: </p><p class="info-text">{{Citizen.new_citizen.1}}</p><br>
+          <p class="info-cat">Exiled: </p><p class="info-text">{{Citizen.new_citizen.2}}</p>
+        </div>
+      </div>
     </div>
     {% elif Data.error_mint %}
     <div class="col-6" align="center">
@@ -58,7 +62,7 @@
   <div class="row justify-content-center">
     <div class="col-6" align="center">
 
-      <h3>Check Citizenship</h3>
+      <h3 class="submit-heading">Check Citizenship</h3>
       <form class="" action="{% url 'survivor_dao' %}" method="get">
         <div class="row">
           <div class="col-9">
@@ -74,16 +78,20 @@
   </div>
 </div>
 
-<div class="container mt-3 mx-5">
+<div class="container mt-5 mx-5">
   <div class="row justify-content-center">
     {% if Citizen.current_citizen %}
-    <div class="col-6 info-panel">
+    <div class="col-auto info-panel">
       <p class="info-head" align="center">Citizenship Card</p>
-      <p class="info-text">{{Citizen.current_citizen.owner}}</p><br>
-      <p class="info-cat">ID: </p><p class="info-text">{{Citizen.current_citizen_id}}</p><br>
-      <p class="info-cat">Name: </p><p class="info-text">{{Citizen.current_citizen.name}}</p><br>
-      <p class="info-cat">Rounds Survived: </p><p class="info-text">{{Citizen.current_citizen.rounds}}</p><br>
-      <p class="info-cat">Exiled: </p><p class="info-text">{{Citizen.current_citizen.exiled}}</p>
+      <p class="info-add" align="left">{{Citizen.current_citizen.owner}}</p>
+      <div class="row">
+        <div class="col-auto">
+          <p class="info-cat">ID: </p><p class="info-text">{{Citizen.current_citizen_id}}</p><br>
+          <p class="info-cat">Name: </p><p class="info-text">{{Citizen.current_citizen.name}}</p><br>
+          <p class="info-cat">Rounds Survived: </p><p class="info-text">{{Citizen.current_citizen.rounds}}</p><br>
+          <p class="info-cat">Exiled: </p><p class="info-text">{{Citizen.current_citizen.exiled}}</p>
+        </div>
+      </div>
     </div>
     {% elif Data.error_search %}
     <div class="col-6" align="center">
@@ -95,19 +103,59 @@
     {% endif %}
   </div>
 </div>
+<hr class="m-5">
+
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-6" align="center">
+
+    {% if game_status %}
+      <h1 class="title mb-2">Game in Progress</h1>
+      <form class="" action="{% url 'survivor_dao' %}" method="get">
+        <input class="btn btn-primary" type="submit" name="resetGame" value="Reset Game">
+      </form>
+    {% else %}
+      <h1>Game Yet to Start</h1>
+      <form class="" action="{% url 'survivor_dao' %}" method="get">
+        <input class="btn btn-primary" type="submit" name="startGame" value="Start Game">
+      </form>
+    {% endif %}
+
+    <button class="btn btn-success my-3" onclick=" window.open('https://www.withtally.com/governance/eip155:4:0x21D335b2bc4f57CF3C81DE438D7384b3dBd20849','_blank')"> Vote on Tally</button>
+
+    </div>
+  </div>
+</div>
+
+<hr class="m-5">
 
 <div class="container m-5">
   <div class="row justify-content-center">
     <div class="col-12">
+      <h1 class="title" align="center">Citizens</h1>
       <div class="row justify-content-center">
         {% for citizen, value in Citizen.registry.items %}
-        <div class="col-2 mx-3 mt-4 gallery-panel">
-          <p class="gallery-cat">ID: </p><p class="gallery-text">{{citizen}}</p><br>
-          <p class="gallery-cat">Name: </p><p class="gallery-text">{{value.name}}</p><br>
-          <p class="gallery-cat">Rounds Survived: </p><p class="gallery-text">{{value.rounds}}</p><br>
-          <p class="gallery-cat">Exiled: </p><p class="gallery-text">{{value.exiled}}</p><br>
-          <div class="gallery-owner">{{value.owner}}<br></div>
-        </div>
+        {% if value.exiled %}
+          <div class="col-2 mx-3 mt-4 gallery-panel-exiled">
+            <img class="img" src="{{value.img.img.url}}" style="width:100%">
+            <p class="exiled" align="center">EXILED</p>
+            <p class="gallery-cat-exiled">ID: </p><p class="gallery-text-exiled">{{citizen}}</p><br>
+            <p class="gallery-cat-exiled">Name: </p><p class="gallery-text-exiled">{{value.name}}</p><br>
+            <p class="gallery-cat-exiled">Rounds Survived: </p><p class="gallery-text-exiled">{{value.rounds}}</p><br>
+            <p class="gallery-cat-exiled pt-3">Owner: </p><div class="gallery-owner-exiled pb-3">{{value.owner}}</div>
+          </div>
+        {% else %}
+          {{value.img.url}}
+          <div class="col-2 mx-3 mt-4 gallery-panel">
+            <img class="img" src="{{value.img.img.url}}" style="width:100%">
+            <p class="gallery-cat">ID: </p><p class="gallery-text">{{citizen}}</p><br>
+            <p class="gallery-cat">Name: </p><p class="gallery-text">{{value.name}}</p><br>
+            <p class="gallery-cat">Rounds Survived: </p><p class="gallery-text">{{value.rounds}}</p><br>
+            <p class="gallery-cat">Voting Power: </p><p class="gallery-text">{{value.voting_power}}</p><br>
+            <p class="gallery-cat">Delegatee: </p><div class="gallery-owner pb-2">{{value.delegatee}}</div>
+            <p class="gallery-cat">Owner: </p><div class="gallery-owner pb-3">{{value.owner}}</div>
+          </div>
+        {% endif %}
         {% endfor %}
       </div>
     </div>

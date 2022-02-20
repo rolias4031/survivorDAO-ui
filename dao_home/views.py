@@ -3,6 +3,7 @@ from web3 import Web3
 import web3
 from .survivor_dao_package.utils import *
 from .survivor_dao_package.creds import *
+from .models import Project
 
 class Conn():
     objects = web3_connect(ganache_url)
@@ -15,6 +16,7 @@ class Data():
     error_mint = None
     error_search = None
     error_registry = None
+    images = Project.objects.all()
 
     def error_reset(self):
         self.error_mint, self.error_search, self.error_registry = None, None, None
@@ -33,9 +35,13 @@ class Citizen():
 # Create your views here.
 def survivor_dao(request):
 
+    game_status = gameStatus_func(Conn.contract)
+    print(get_citizens(Conn.contract))
+    print(game_status)
     Data.error_reset(Data)
 
     Citizen.registry = organize_citizens(request, Data, Conn, Citizen)
+    Citizen.registry["1"]["exiled"]=True
 
     if request.GET.get("mint_submit") and Conn.objects["connect_bool"]:
         Citizen.var_reset(Citizen)
@@ -52,8 +58,15 @@ def survivor_dao(request):
         else:
             Data.error_search = "Enter a valid address to search"
 
+    elif request.GET.get("startGame") and Conn.objects["connect_bool"]:
+        startGame_func(Conn.contract)
+
+    elif request.GET.get("resetGame") and Conn.objects["connect_bool"]:
+        resetGame_func(Conn.contract)
+
     return render(request, "dao_home/dao_ui.html",
                   {'Data': Data,
                    'Citizen': Citizen,
+                   'game_status':game_status
                    }
                   )
