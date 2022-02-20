@@ -1,26 +1,47 @@
-.info-text {
+.img {
+  border-radius: 5px;
+}
+
+.title, .submit-heading {
+  font-weight: 400;
+  font-family: "IBM Plex Sans";
+
+}
+
+.title {
+  font-size: 50px;
+}
+
+.info-text, .info-add {
   font-size: 20px;
-  font-weight: 300;
-  display: inline;
-  margin-left: 10px;
+  font-weight: 400;
 
 }
 
 .info-head {
   font-size: 28px;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 10px;
+  font-family: "IBM Plex Serif";
+}
+
+.info-text {
+  display: inline;
+  font-family: "IBM Plex Sans";
+  margin-left: 10px;
+
 }
 
 .info-add {
-  font-family: "Times New Roman";
+  font-family: "IBM Plex Mono";
 }
 
 .info-cat {
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 600;
   display: inline;
-
+  font-family: "IBM Plex Sans";
+  margin-left: 2px;
 }
 
 .info-panel {
@@ -28,20 +49,24 @@
   border-radius: 5px;
   padding-bottom: 10px;
   padding-top: 10px;
-  box-shadow: 3px 3px 4px rgb(230,230,230);
+  box-shadow: 3px 3px 4px rgb(210,210,210);
 }
 
 .gallery-cat, .gallery-text {
   display: inline-block;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .gallery-cat {
-  font-weight: bold;
+  font-weight: 600;
+  font-family: "IBM Plex Sans";
 }
 
 .gallery-text {
   margin-left: 5px;
+  font-family: "IBM Plex Sans";
+  font-weight: 400;
+  color: rgb(50,50,50);
 }
 
 .gallery-panel {
@@ -52,13 +77,51 @@
 }
 
 .gallery-owner {
-  margin-top: 5px;
-  margin-bottom: 5px;
   font-size: 14px;
-  font-weight: 300;
-  color: rgb(100,100,100);
+  font-weight: 400;
+  color: rgb(50,50,50);
   overflow-y: scroll;
-  padding-bottom: 15px;
+  font-family: "IBM Plex Mono";
+}
+
+.exiled {
+  font-size: 40px;
+  font-weight: 500;
+  color: rgb(240,0,0);
+  font-family: "IBM Plex Mono"
+}
+
+.gallery-panel-exiled {
+  background: rgb(40,40,40);
+  box-shadow: 3px 3px 4px rgb(230,230,230);
+  border-radius: 5px;
+  padding-top: 10px;
+}
+
+.gallery-cat-exiled, .gallery-text-exiled {
+  display: inline-block;
+  font-size: 14px;
+}
+
+.gallery-text-exiled {
+  margin-left: 5px;
+  font-family: "IBM Plex Sans";
+  font-weight: 400;
+  color: white;
+}
+
+.gallery-cat-exiled {
+  font-weight: 600;
+  font-family: "IBM Plex Sans";
+  color: white;
+}
+
+.gallery-owner-exiled {
+  font-size: 14px;
+  font-weight: 400;
+  color: white;
+  overflow-y: scroll;
+  font-family: "IBM Plex Mono";
 }
 
 p {
